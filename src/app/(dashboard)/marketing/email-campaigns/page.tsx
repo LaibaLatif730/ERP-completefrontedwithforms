@@ -1,5 +1,15 @@
 "use client";
-
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "lucide-react";
 import { Pacifico } from "next/font/google";
 import {
@@ -148,9 +158,48 @@ export default function EmailCampaignsPage() {
 
       {/* Create Button */}
       <div className="flex justify-end mb-4">
-        <Button className="bg-[#F5793B] text-white hover:bg-[#d8651f] transition-all shadow-md rounded-xl px-4 py-2 text-sm font-semibold">
-          Create New Campaign
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="bg-[#F5793B] text-white hover:bg-[#d8651f] transition-all shadow-md rounded-xl px-4 py-2 text-sm font-semibold">
+              Create New Campaign
+            </Button>
+          </DialogTrigger>
+
+          <DialogContent className="sm:max-w-[500px]">
+            <DialogHeader>
+              <DialogTitle>Create New Campaign</DialogTitle>
+            </DialogHeader>
+
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                  Campaign Name
+                </Label>
+                <Input id="name" placeholder="Enter campaign name" className="col-span-3" />
+              </div>
+
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="subject" className="text-right">
+                  Subject Line
+                </Label>
+                <Input id="subject" placeholder="Email subject line" className="col-span-3" />
+              </div>
+
+              <div className="grid grid-cols-4 items-start gap-4">
+                <Label htmlFor="message" className="text-right pt-2">
+                  Message
+                </Label>
+                <Textarea id="message" placeholder="Write your campaign content..." className="col-span-3" />
+              </div>
+            </div>
+
+            <DialogFooter>
+              <Button type="submit" className="bg-[#F5793B] text-white hover:bg-[#d8651f]">
+                Submit Campaign
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Campaign Table + Summary + Chart */}

@@ -2,6 +2,8 @@
 "use client";
 import { Button } from "@/components/ui/button"; // ✅ For all your buttons
 import { RefreshCw, Download } from "lucide-react"; // ✅ For icons used in buttons
+import * as Dialog from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
 
 // import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 // import { Badge } from "@/components/ui/badge";
@@ -147,24 +149,136 @@ export default function AnalyticsPage() {
         </div>
       </div>
                 <div className="flex flex-wrap items-center gap-5 mb-4">
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Refresh Data
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              <Download className="w-4 h-4 mr-2" />
-              Generate Report
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              View Detailed Reports
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              + Add Sales Entry
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              Send to Email
-            </Button>
-          </div>
+  {/* Refresh Data */}
+  <Dialog.Root>
+    <Dialog.Trigger asChild>
+      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+        <RefreshCw className="w-4 h-4 mr-2" />
+        Refresh Data
+      </Button>
+    </Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40" />
+      <Dialog.Content className="fixed top-1/2 left-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 p-6 rounded-xl z-50 shadow-lg space-y-4">
+        <div className="flex justify-between items-center">
+          <Dialog.Title className="text-lg font-semibold">Refresh Data</Dialog.Title>
+          <Dialog.Close asChild>
+            <Button variant="ghost"><X className="w-4 h-4" /></Button>
+          </Dialog.Close>
+        </div>
+        <p>Are you sure you want to refresh the data?</p>
+        <Button className="bg-orange-500 text-white w-full">Confirm Refresh</Button>
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
+
+  {/* Generate Report */}
+  <Dialog.Root>
+    <Dialog.Trigger asChild>
+      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+        <Download className="w-4 h-4 mr-2" />
+        Generate Report
+      </Button>
+    </Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40" />
+      <Dialog.Content className="fixed top-1/2 left-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 p-6 rounded-xl z-50 shadow-lg space-y-4">
+        <div className="flex justify-between items-center">
+          <Dialog.Title className="text-lg font-semibold">Generate Report</Dialog.Title>
+          <Dialog.Close asChild>
+            <Button variant="ghost"><X className="w-4 h-4" /></Button>
+          </Dialog.Close>
+        </div>
+        <form className="space-y-3">
+          <input type="text" placeholder="Report Name" className="w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
+          <select className="w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white">
+            <option>PDF</option>
+            <option>Excel</option>
+          </select>
+          <Button type="submit" className="w-full bg-orange-500 text-white">Generate</Button>
+        </form>
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
+
+  {/* View Detailed Reports */}
+  <Dialog.Root>
+    <Dialog.Trigger asChild>
+      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+        View Detailed Reports
+      </Button>
+    </Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40" />
+      <Dialog.Content className="fixed top-1/2 left-1/2 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 p-6 rounded-xl z-50 shadow-lg space-y-4">
+        <div className="flex justify-between items-center">
+          <Dialog.Title className="text-lg font-semibold">Detailed Reports</Dialog.Title>
+          <Dialog.Close asChild>
+            <Button variant="ghost"><X className="w-4 h-4" /></Button>
+          </Dialog.Close>
+        </div>
+        <p className="text-sm">Here you can display or load the detailed report data (e.g., via table or chart).</p>
+        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-md h-40 overflow-auto">
+          {/* You can place a table or list of reports here */}
+          <p className="text-xs text-gray-500">Example Report Data...</p>
+        </div>
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
+
+  {/* Add Sales Entry */}
+  <Dialog.Root>
+    <Dialog.Trigger asChild>
+      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+        + Add Sales Entry
+      </Button>
+    </Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40" />
+      <Dialog.Content className="fixed top-1/2 left-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 p-6 rounded-xl z-50 shadow-lg space-y-4">
+        <div className="flex justify-between items-center">
+          <Dialog.Title className="text-lg font-semibold">Add Sales Entry</Dialog.Title>
+          <Dialog.Close asChild>
+            <Button variant="ghost"><X className="w-4 h-4" /></Button>
+          </Dialog.Close>
+        </div>
+        <form className="space-y-3">
+          <input type="text" placeholder="Customer Name" className="w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
+          <input type="number" placeholder="Amount" className="w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
+          <input type="text" placeholder="Product" className="w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
+          <input type="date" className="w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
+          <Button type="submit" className="w-full bg-orange-500 text-white">Add Entry</Button>
+        </form>
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
+
+  {/* Send to Email */}
+  <Dialog.Root>
+    <Dialog.Trigger asChild>
+      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+        Send to Email
+      </Button>
+    </Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay className="fixed inset-0 bg-black/50 z-40" />
+      <Dialog.Content className="fixed top-1/2 left-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 p-6 rounded-xl z-50 shadow-lg space-y-4">
+        <div className="flex justify-between items-center">
+          <Dialog.Title className="text-lg font-semibold">Send Report via Email</Dialog.Title>
+          <Dialog.Close asChild>
+            <Button variant="ghost"><X className="w-4 h-4" /></Button>
+          </Dialog.Close>
+        </div>
+        <form className="space-y-3">
+          <input type="email" placeholder="Recipient Email" className="w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white" />
+          <textarea placeholder="Message (optional)" className="w-full p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white" rows={3}></textarea>
+          <Button type="submit" className="w-full bg-orange-500 text-white">Send Email</Button>
+        </form>
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
+</div>
+
       {/* KPI Cards - Dashboard Style */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
         {kpiCards.map(({ title, value, change, icon: Icon }) => (

@@ -129,13 +129,12 @@ const Overview = () => {
 
   return (
     <StyledContainer>
-      <h2 className="text-lg font-bold">Client Overview</h2>
-      <p className="text-sm text-gray-600 dark:text-gray-400">Detailed insights into your client base, including retention and subscription tiers.</p>
+      <h2 className="text-lg font-bold bg">Client Overview</h2>
+      <p className="text-sm text-gray-600  dark:text-gray-400">Detailed insights into your client base, including retention and subscription tiers.</p>
 
       {/* Consolidated table for main metrics */}
-      <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+      <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <h3 className="text-base font-semibold mb-2">Key Client Metrics</h3>
-        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {overviewMetrics.map((metric, index) => (
@@ -151,12 +150,11 @@ const Overview = () => {
             </tbody>
           </table>
         </div>
-      </div>
+  
 
       {/* Table for Client Subscription Tiers (kept separate due to different structure) */}
-      <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+      <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <h3 className="text-base font-semibold mb-2">Client Subscription Tiers</h3>
-        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="">
               {/* bg-gray-50 dark:bg-gray-700 */}
@@ -178,7 +176,6 @@ const Overview = () => {
             </tbody>
           </table>
         </div>
-      </div>
     </StyledContainer>
   );
 };
@@ -194,9 +191,8 @@ const Usage = () => {
     <StyledContainer>
       <h2 className="text-lg font-bold">Usage Analytics</h2>
       <p className="text-sm text-gray-600 dark:text-gray-400">Key metrics on how clients interact with your platform and its modules.</p>
-      <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+      <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <h3 className="text-base font-semibold mb-2">Platform Usage Data</h3>
-        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="">
               <tr>
@@ -214,7 +210,7 @@ const Usage = () => {
             </tbody>
           </table>
         </div>
-      </div>
+
     </StyledContainer>
   );
 };
@@ -242,9 +238,8 @@ const Subscription = () => {
       <p className="text-sm text-gray-600 dark:text-gray-400">A comprehensive look at your subscription revenue and billing status.</p>
 
       {/* Table for Monthly Recurring Revenue (MRR) */}
-      <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+      <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <h3 className="text-base font-semibold mb-2">Monthly Recurring Revenue (MRR)</h3>
-        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="">
               <tr>
@@ -262,12 +257,12 @@ const Subscription = () => {
             </tbody>
           </table>
         </div>
-      </div>
+    
 
       {/* Table for Total Revenue from Subscriptions */}
-      <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+      <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <h3 className="text-base font-semibold mb-2">Total Revenue from Subscriptions</h3>
-        <div className="overflow-x-auto">
+        
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="">
               <tr>
@@ -284,13 +279,11 @@ const Subscription = () => {
               ))}
             </tbody>
           </table>
-        </div>
       </div>
 
       {/* Table for Trial-to-paid conversion rate */}
-      <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+      <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <h3 className="text-base font-semibold mb-2">Trial-to-paid conversion rate</h3>
-        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="">
               <tr>
@@ -307,7 +300,7 @@ const Subscription = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        
       </div>
     </StyledContainer>
   );
@@ -338,7 +331,7 @@ const Trends = () => {
       </div>
 
       {/* User Demographics with link */}
-      <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+      <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <h3 className="text-base font-semibold mb-2">
           <button className="text-base font-semibold mb-2" onClick={() => handleLinkClick('mographics')}>
             User Demographics
@@ -374,7 +367,7 @@ const Trends = () => {
         </div>
       </div>
 
-      <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+      <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <h3 className="text-base font-semibold mb-2">User Growth Per Client (last 6 months)</h3>
         <ResponsiveContainer width="100%" height={250}>
           <LineChart data={userGrowthData}>
@@ -408,9 +401,7 @@ const Support = () => (
     </div>
 
     {/* Recent Support Tickets Section */}
-    <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
-      <h3 className="text-base font-semibold mb-2">Recent Support Tickets</h3>
-      <div className="overflow-x-auto">
+    <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="">
             <tr>
@@ -436,11 +427,10 @@ const Support = () => (
             ))}
           </tbody>
         </table>
-      </div>
     </div>
 
     {/* FAQ and Knowledge Base Section */}
-    <div className="bg-[#eeeeee] dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
+    <div className="bg-orange-500/20 dark:bg-[#111111b9] p-4 rounded-lg shadow-md mt-4">
       <h3 className="text-base font-semibold mb-2">Need a quick solution?</h3>
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
         Our comprehensive FAQ and knowledge base can help you find answers to common questions.
@@ -482,7 +472,7 @@ const App = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-50 font-sans antialiased">
       {/* Top Navigation Bar with the new style */}
-      <div className="relative rounded-xl p-2 shadow-md mb-4 mx-4 mt-4 flex justify-between items-center overflow-hidden">
+      <div className="relative rounded-xl p-2 shadow-md mb-4 mx-4 mt-4 flex justify-between items-center overflow-hidden h-16 h-16 min-h-16 max-h-16">
         <div className="absolute inset-0 rounded-xl overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-transparent to-orange-500/5 dark:from-orange-500/10 dark:via-transparent dark:to-orange-500/10 rounded-xl blur-xl animate-pulse" />
           <div className="absolute inset-0 p-[1px] rounded-xl bg-gradient-to-br from-orange-500/30 via-white/20 to-blue-500/30 dark:from-orange-500/20 dark:via-white/10 dark:to-blue-500/20">
@@ -515,7 +505,7 @@ const App = () => {
                     onClick={() => setActiveModule(moduleName)}
                     className={`flex items-center space-x-1 px-2 py-1 rounded-lg transition-colors duration-200 ${isActive
                       ? 'bg-orange-500/30 text-orange-700 dark:bg-orange-500/30 dark:text-orange-300 shadow-md'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 shadow-[0_0_0_2px_transparent]'
                       }`}
                   >
                     <IconComponent className="h-4 w-4" />
@@ -529,7 +519,7 @@ const App = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-auto p-4">
+      <div className="flex-1  p-4">
         <ActiveComponent />
       </div>
     </div>

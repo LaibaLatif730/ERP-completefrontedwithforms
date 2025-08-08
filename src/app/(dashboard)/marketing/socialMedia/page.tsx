@@ -1,4 +1,15 @@
 "use client";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 import { Pacifico } from "next/font/google";
 import {
@@ -114,10 +125,41 @@ export default function SocialMediaPage() {
         ))}
       </div>
 
-      {/* Action Button */}
-      <Button className="bg-[#F5793B] hover:bg-orange-600 text-white text-sm rounded-xl px-4 py-2">
-        + Schedule New Post
-      </Button>
+              <Dialog>
+          <DialogTrigger asChild>
+            <Button className="bg-[#F5793B] hover:bg-orange-600 text-white text-sm rounded-xl px-4 py-2">
+              + Schedule New Post
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[500px]">
+            <DialogHeader>
+              <DialogTitle>Schedule a New Post</DialogTitle>
+            </DialogHeader>
+
+            <form className="space-y-4">
+              <div className="grid gap-2">
+                <Label htmlFor="platform">Platform</Label>
+                <Input id="platform" placeholder="e.g. Facebook, Instagram" />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="date">Schedule Date</Label>
+                <Input id="date" type="date" />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="caption">Caption</Label>
+                <Textarea id="caption" placeholder="Write your post content..." />
+              </div>
+
+              <DialogFooter>
+                <Button type="submit" className="bg-[#F5793B] hover:bg-orange-600 text-white">
+                  Schedule Post
+                </Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
 
       {/* Recent Posts Table */}
       <Card className="border border-[#F5793B] rounded-2xl shadow-md overflow-hidden">

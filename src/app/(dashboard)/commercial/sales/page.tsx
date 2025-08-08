@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Search, Plus, Package, ShoppingCart, ChevronDown } from 'lucide-react';
+import { Search, Plus, Package, ShoppingCart, ChevronDown, X } from 'lucide-react';
 import SalesRepresentativeCard from '@/components/commercial/SalesRepresentativeCard';
 import { cn } from "@/lib/utils";
 import { Pacifico } from "next/font/google";
@@ -14,7 +14,6 @@ const pacifico = Pacifico({
   variable: "--font-pacifico",
 });
 
-// Navbar Components
 interface NavbarProps {
   onNavLinkClick: (link: string) => void;
 }
@@ -22,9 +21,10 @@ interface NavDropdownProps {
   title: string;
   icon: React.ElementType;
   links: string[];
+  onLinkClick: (link: string) => void;
 }
 
-const NavDropdown = ({ title, icon: Icon, links, onLinkClick }: NavDropdownProps & { onLinkClick: (link: string) => void }) => {
+const NavDropdown = ({ title, icon: Icon, links, onLinkClick }: NavDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -74,16 +74,32 @@ const Navbar = ({ onNavLinkClick }: NavbarProps) => {
   );
 };
 
-// --- Main Dashboard Component ---
-
 const SalesDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const [newRep, setNewRep] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    status: 'active',
+  });
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value);
   const handleFilterClick = (status: string) => setFilterStatus(status.toLowerCase());
+  const handleAddSalesRepClick = () => setShowAddForm(true);
 
-  const handleAddSalesRep = () => alert("Add Sales Rep button clicked!");
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setNewRep({ ...newRep, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Submitted New Rep:", newRep);
+    setShowAddForm(false);
+    setNewRep({ name: '', email: '', phone: '', status: 'active' });
+  };
 
   const filteredSalesReps = salesRepresentativesData.filter(rep => {
     const matchesSearch = rep.name.includes(searchTerm) ||
@@ -124,13 +140,54 @@ const SalesDashboard = () => {
         </div>
 
         <button
-          onClick={handleAddSalesRep}
-          className="relative z-30 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white px-3 py-1.5 rounded-xl text-xs hover:bg-[#F5793B]/20 transition-colors flex items-center gap-1"
+          onClick={handleAddSalesRepClick}
+          className="relative z-30 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white px-3 py-1.5 rounded-xl text-xs hover:bg-orange-600 transition-colors flex items-center gap-1"
         >
           <Plus className="w-3 h-3" />
           <span>Add Rep</span>
         </button>
       </div>
+
+      {/* Modal Form */}
+      {showAddForm && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
+            <button
+              onClick={() => setShowAddForm(false)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500"
+              aria-label="Close Add Representative Form"
+              title="Close"
+            >
+              <X />
+            </button>
+            <h2 className="text-lg font-semibold mb-4 text-center">Add New Sales Representative</h2>
+            <form onSubmit={handleFormSubmit} className="space-y-4">
+              <input type="text" name="name" value={newRep.name} onChange={handleFormChange} placeholder="Full Name" required
+                className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-800 text-sm" />
+              <input type="email" name="email" value={newRep.email} onChange={handleFormChange} placeholder="Email" required
+                className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-800 text-sm" />
+              <input type="tel" name="phone" value={newRep.phone} onChange={handleFormChange} placeholder="Phone" required
+                className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-800 text-sm" />
+              
+              {/* Accessible label for select */}
+              <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Status
+              </label>
+              <select id="status" name="status" value={newRep.status} onChange={handleFormChange}
+                className="w-full px-3 py-2 border rounded-md bg-gray-50 dark:bg-gray-800 text-sm">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="on leave">On Leave</option>
+              </select>
+
+              <button type="submit"
+                className="w-full py-2 rounded-md bg-[#F5793B] text-white text-sm hover:bg-orange-600 transition-all">
+                Save Representative
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Cards */}
       <div className="grid grid-cols-4 gap-2 mb-2">
@@ -148,7 +205,7 @@ const SalesDashboard = () => {
                 <div className="w-6 h-6 rounded-lg bg-[#F5793B]/10 dark:bg-[#F5793B]/20 flex items-center justify-center mx-auto mb-1">
                   <IconComponent className="w-3 h-3 text-[#F5793B]" />
                 </div>
-                <p className="text-[10px] font-medium text-gray-700 dark:text-gray-300 mb-1 truncate">{card.title}</p>
+                <p className="text-[10px] font-medium mb-1 truncate">{card.title}</p>
                 <p className="text-sm font-bold text-[#F5793B] truncate">{card.value}</p>
               </div>
             </div>
@@ -163,7 +220,7 @@ const SalesDashboard = () => {
             <input
               type="text"
               placeholder="Search representatives..."
-              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white text-xs"
+              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-gray-50 dark:bg-gray-800/50 border text-xs"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -174,7 +231,7 @@ const SalesDashboard = () => {
               <button
                 key={status}
                 onClick={() => handleFilterClick(status)}
-                className={`px-2 py-1 rounded-lg font-medium text-xs
+                className={`px-2 py-1 rounded-lg font-medium
                   ${filterStatus === (status === 'All' ? 'all' : status.toLowerCase())
                     ? 'bg-[#F5793B] text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800/50 dark:text-gray-300 dark:hover:bg-gray-700/50'}`}

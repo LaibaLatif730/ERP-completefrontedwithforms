@@ -17,6 +17,15 @@ const pacifico = Pacifico({
   weight: ["400"],
   variable: "--font-pacifico",
 });
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 import EmployeeCard from '@/components/humanResource/EmployeeCard';
 
@@ -118,13 +127,52 @@ const EmployeeAttendancePage: React.FC = () => {
             </select>
             <ChevronDown size={18} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none" />
           </div>
-          <button
-            onClick={handleViewLeaveCalendar}
-            className="bg-white/50 dark:bg-gray-800/50 text-black dark:text-white flex items-center justify-center py-1.5 px-3 rounded-lg shadow-md hover:bg-[#e5a004] transition-all duration-200 w-full sm:w-auto whitespace-nowrap text-xs"
-          >
-            <CalendarDays size={18} className="mr-1.5" />
-            View Leave Calendar
-          </button>
+                    <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="bg-white/50 dark:bg-gray-800/50 text-black dark:text-white flex items-center justify-center py-1.5 px-3 rounded-lg shadow-md hover:bg-[#e5a004] transition-all duration-200 w-full sm:w-auto whitespace-nowrap text-xs"
+                  >
+                    <CalendarDays size={18} className="mr-1.5" />
+                    View Leave Calendar
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Leave Calendar</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <label htmlFor="month" className="text-sm font-medium text-zinc-700 dark:text-zinc-300 col-span-1">
+                        Month
+                      </label>
+                      <input
+                        id="month"
+                        type="month"
+                        className="col-span-3 w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-sm bg-white dark:bg-[#1a1a1a] text-zinc-900 dark:text-white"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-start gap-4">
+                      <label htmlFor="note" className="text-sm font-medium text-zinc-700 dark:text-zinc-300 col-span-1 mt-1">
+                        Note
+                      </label>
+                      <textarea
+                        id="note"
+                        placeholder="Optional notes..."
+                        className="col-span-3 w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-sm bg-white dark:bg-[#1a1a1a] text-zinc-900 dark:text-white resize-none"
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit" className="bg-[#e5a004] hover:bg-[#c28c02] text-white">
+                      Save
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+
+
         </div>
       </div>
 

@@ -1,17 +1,57 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Search, ChevronDown, PlusCircle, ShoppingCart, Clock, Truck, Users, Calendar } from 'lucide-react';
-import { Line, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Tooltip, Legend } from 'chart.js';
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Tooltip, Legend);
-
-import { cn } from "@/lib/utils";
+import React, { useState } from "react";
+import SourceInventoryCard from "@/components/Stock/SourceInventoryCard";
+import {
+  sourcingCardsData,
+  pendingPOsData,
+  poStatusDistributionData,
+  spendingTrendData,
+  recentSupplierActivityData,
+} from "@/lib/stockdata";
 import { Pacifico } from "next/font/google";
-const pacifico = Pacifico({ subsets: ["latin"], weight: ["400"], variable: "--font-pacifico" });
+import { Search, ChevronDown, PlusCircle, Calendar } from "lucide-react";
+import { Line, Pie } from "react-chartjs-2";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils"; // Assuming you have a utility for merging classNames
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+} from "chart.js";
 
-import SourceInventoryCard from '@/components/Stock/SourceInventoryCard';
-import { sourcingCardsData, pendingPOsData, poStatusDistributionData, spendingTrendData, recentSupplierActivityData } from '@/lib/stockdata';
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale, // 👉 Required for X-axis scale in Line chart
+  LinearScale,   // 👉 Required for Y-axis scale in Line chart
+  PointElement,
+  LineElement
+);
+
+
+const pacifico = Pacifico({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-pacifico",
+});
 
 const StockSourcingPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,8 +65,9 @@ const StockSourcingPage: React.FC = () => {
     setFilterPOStatus(event.target.value);
   };
 
-  const handleCreateNewPO = () => {
-    alert("Create New Purchase Order button clicked!");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Purchase Offer Created!");
   };
 
   const getPOStatusColorClass = (status: string) => {
@@ -106,13 +147,63 @@ const StockSourcingPage: React.FC = () => {
             </select>
             <ChevronDown size={18} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none" />
           </div>
-          <button
-            onClick={handleCreateNewPO}
-            className="bg-orange-600 hover:bg-orange-500 text-white flex items-center justify-center py-1.5 px-3 rounded-lg shadow-md transition-all duration-200 w-full sm:w-auto whitespace-nowrap text-sm"
-          >
-            <PlusCircle size={18} className="mr-1.5" />
-            Create New Purchase Order
-          </button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-600 hover:bg-orange-500 text-white flex items-center justify-center py-1.5 px-3 rounded-lg shadow-md transition-all duration-200 text-sm">
+                  <PlusCircle size={18} className="mr-1.5" />
+                  Create New Purchase Offer
+                </Button>
+              </DialogTrigger>
+
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Create New Purchase Offer</DialogTitle>
+                  <DialogDescription>
+                    Fill in the details to create a new purchase offer.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="supplier">Supplier Name</Label>
+                    <Input id="supplier" placeholder="Enter supplier name" required />
+                  </div>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="product">Product</Label>
+                    <Input id="product" placeholder="Enter product name" required />
+                  </div>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="quantity">Quantity</Label>
+                    <Input
+                      id="quantity"
+                      type="number"
+                      min={1}
+                      placeholder="Enter quantity"
+                      required
+                    />
+                  </div>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="price">Total Price</Label>
+                    <Input
+                      id="price"
+                      type="number"
+                      min={0}
+                      placeholder="Enter total price"
+                      required
+                    />
+                  </div>
+
+                  <DialogFooter className="mt-4">
+                    <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-500">
+                      Submit Offer
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+          </Dialog>
         </div>
       </div>
 
@@ -235,7 +326,6 @@ const StockSourcingPage: React.FC = () => {
         </table>
       </div>
     </div>
-  );
+  )
 };
-
 export default StockSourcingPage;

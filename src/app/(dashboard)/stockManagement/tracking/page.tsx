@@ -1,9 +1,15 @@
 // app/stock/tracking/page.tsx
 "use client";
 
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Truck, FilePlus2, Send, BarChart3 } from "lucide-react";
+
 import React, { useState } from 'react';
 import { Calendar } from 'lucide-react';
-import { Search, ChevronDown, Truck, FilePlus2, Send, BarChart3 } from 'lucide-react';
+import { Search, ChevronDown} from 'lucide-react';
 
 import { cn } from "@/lib/utils";
 import { Pacifico } from "next/font/google";
@@ -78,7 +84,7 @@ const StockTrackingPage: React.FC = () => {
                     pacifico.className
                   )}
                 >
-                  Customer Support Account Help
+                  Stock Management Tracking
                 </h1>
               </div>
       
@@ -117,24 +123,117 @@ const StockTrackingPage: React.FC = () => {
             <option>Exception</option>
           </select>
           <ChevronDown size={18} className="absolute right-3 top-[54%] text-gray-500 dark:text-gray-400 pointer-events-none" />
+            {/* Initiate Shipment Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white text-sm">
+                  <Truck size={18} className="mr-1.5" />
+                  Initiate Shipment
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-lg font-semibold">Initiate New Shipment</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleInitiateNewShipment} className="space-y-4 mt-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="shipmentName">Shipment Name</Label>
+                    <Input id="shipmentName" placeholder="Enter shipment name" required />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="destination">Destination</Label>
+                    <Input id="destination" placeholder="Enter destination" required />
+                  </div>
+                  <DialogFooter className="mt-4">
+                    <Button className="bg-orange-500 hover:bg-orange-600" type="submit">Submit Shipment</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
 
-          {/* Action Buttons */}
-          <button onClick={handleInitiateNewShipment} className="bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center py-1.5 px-3 rounded-lg shadow-md transition-all duration-200 text-sm">
-            <Truck size={18} className="mr-1.5" />
-            Initiate Shipment
-          </button>
-          <button onClick={handleCreateItem} className="bg-orange-500 hover:bg-orange-600 text-white flex items-center py-1.5 px-3 rounded-lg shadow-md transition-all duration-200 text-sm">
-            <FilePlus2 className="mr-1.5" size={18} />
-            Create Item
-          </button>
-          <button onClick={handleSubmitStock} className="bg-orange-500 hover:bg-orange-600 text-white flex items-center py-1.5 px-3 rounded-lg shadow-md transition-all duration-200 text-sm">
-            <Send className="mr-1.5" size={18} />
-            Submit Stock
-          </button>
-          <button onClick={handleGenerateReport} className="bg-orange-500 hover:bg-orange-600 text-white flex items-center py-1.5 px-3 rounded-lg shadow-md transition-all duration-200 text-sm">
-            <BarChart3 className="mr-1.5" size={18} />
-            Generate Report
-          </button>
+            {/* Create Item Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white text-sm">
+                  <FilePlus2 className="mr-1.5" size={18} />
+                  Create Item
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-lg font-semibold">Create New Item</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleCreateItem} className="space-y-4 mt-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="itemName">Item Name</Label>
+                    <Input id="itemName" placeholder="Enter item name" required />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="category">Category</Label>
+                    <Input id="category" placeholder="Enter category" />
+                  </div>
+                  <DialogFooter className="mt-4">
+                    <Button className="bg-orange-500 hover:bg-orange-600" type="submit">Create Item</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
+
+            {/* Submit Stock Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white text-sm">
+                  <Send className="mr-1.5" size={18} />
+                  Submit Stock
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-lg font-semibold">Submit Stock</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmitStock} className="space-y-4 mt-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="stockQuantity">Stock Quantity</Label>
+                    <Input id="stockQuantity" type="number" placeholder="Enter quantity" required />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="stockLocation">Location</Label>
+                    <Input id="stockLocation" placeholder="Enter stock location" />
+                  </div>
+                  <DialogFooter className="mt-4">
+                    <Button className="bg-orange-500 hover:bg-orange-600" type="submit">Submit Stock</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
+
+            {/* Generate Report Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white text-sm">
+                  <BarChart3 className="mr-1.5" size={18} />
+                  Generate Report
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-lg font-semibold">Generate Report</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleGenerateReport} className="space-y-4 mt-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="reportDate">Report Date</Label>
+                    <Input id="reportDate" type="date" required />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="reportType">Report Type</Label>
+                    <Input id="reportType" placeholder="e.g. Inventory, Sales, etc." />
+                  </div>
+                  <DialogFooter className="mt-4">
+                    <Button className="bg-orange-500 hover:bg-orange-600" type="submit">Generate</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
         </div>
       </div>
 

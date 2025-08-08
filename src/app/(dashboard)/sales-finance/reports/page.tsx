@@ -1,4 +1,22 @@
 "use client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 // import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { RefreshCw, Download } from "lucide-react"; // ✅ For icons used in buttons
@@ -152,19 +170,97 @@ export default function ReportsPage() {
         </div>
       </div>
        <div className="flex flex-wrap items-center gap-5 mb-4">
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              <Calendar className="w-4 h-4 mr-2" />
-              Select Date
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Refresh
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              <Download className="w-4 h-4 mr-2" />
-              Export
-            </Button>
-          </div>
+  {/* Select Date Dialog */}
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+        <Calendar className="w-4 h-4 mr-2" />
+        Select Date
+      </Button>
+    </DialogTrigger>
+    <DialogContent className="sm:max-w-[400px]">
+      <DialogHeader>
+        <DialogTitle>Select Report Date</DialogTitle>
+      </DialogHeader>
+      <div className="grid gap-4 py-4">
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="start" className="text-right">
+            Start Date
+          </Label>
+          <Input id="start" type="date" className="col-span-3" />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="end" className="text-right">
+            End Date
+          </Label>
+          <Input id="end" type="date" className="col-span-3" />
+        </div>
+      </div>
+      <DialogFooter>
+        <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white">
+          Apply Filter
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+
+  {/* Refresh Dialog */}
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+        <RefreshCw className="w-4 h-4 mr-2" />
+        Refresh
+      </Button>
+    </DialogTrigger>
+    <DialogContent className="sm:max-w-md">
+      <DialogHeader>
+        <DialogTitle>Refresh Data</DialogTitle>
+      </DialogHeader>
+      <div className="text-sm text-gray-600 dark:text-gray-300">
+        Are you sure you want to refresh the report data? This action will reload the latest available records.
+      </div>
+      <DialogFooter>
+        <Button variant="outline">Cancel</Button>
+        <Button className="bg-orange-500 hover:bg-orange-600 text-white">Refresh</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+
+  {/* Export Dialog */}
+  <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-[#F5793B] hover:bg-orange-600 text-white text-sm rounded-xl px-4 py-2">
+                <Download className="mr-2 h-4 w-4" />
+                Export
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Download Report</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-2">
+                <div>
+                  <label className="text-sm font-medium">File Format</label>
+                  <Select>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Choose format" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pdf">PDF</SelectItem>
+                      <SelectItem value="xlsx">XLSX</SelectItem>
+                      <SelectItem value="csv">CSV</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="submit" className="bg-[#F5793B]  hover:bg-orange-600 text-white">
+                  Download
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+</div>
 
       {/* Executive Summary - Dashboard Style */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
@@ -305,20 +401,108 @@ export default function ReportsPage() {
         </div>
       </div>
       <div className="flex flex-wrap items-center gap-5 mb-4">
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Compare Periods
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              <Download className="w-4 h-4 mr-2" />
-              View Income Statement
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              View Balanced Sheet
-            </Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
-              View Cash Flow
-            </Button>
+            {/* Compare Periods Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Compare Periods
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[400px]">
+                <DialogHeader>
+                  <DialogTitle>Compare Periods</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="period1" className="text-right">Period 1</Label>
+                    <Input id="period1" type="month" className="col-span-3" />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="period2" className="text-right">Period 2</Label>
+                    <Input id="period2" type="month" className="col-span-3" />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white">Compare</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+            {/* View Income Statement Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                  <Download className="w-4 h-4 mr-2" />
+                  View Income Statement
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[400px]">
+                <DialogHeader>
+                  <DialogTitle>View Income Statement</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="incomeMonth" className="text-right">Month</Label>
+                    <Input id="incomeMonth" type="month" className="col-span-3" />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white">Generate</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+            {/* View Balance Sheet Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                  View Balance Sheet
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[400px]">
+                <DialogHeader>
+                  <DialogTitle>View Balance Sheet</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="balanceDate" className="text-right">Date</Label>
+                    <Input id="balanceDate" type="date" className="col-span-3" />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white">View</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+            {/* View Cash Flow Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                  View Cash Flow
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[400px]">
+                <DialogHeader>
+                  <DialogTitle>View Cash Flow</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="cashStart" className="text-right">Start</Label>
+                    <Input id="cashStart" type="date" className="col-span-3" />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="cashEnd" className="text-right">End</Label>
+                    <Input id="cashEnd" type="date" className="col-span-3" />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white">Generate</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
                 </div>
       {/* Detailed Breakdown - Dashboard Style */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-4">

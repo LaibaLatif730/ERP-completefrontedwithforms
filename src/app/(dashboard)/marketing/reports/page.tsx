@@ -2,6 +2,14 @@
 
 import { Pacifico } from "next/font/google";
 import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 import {
   Card,
@@ -112,18 +120,87 @@ export default function MarketingReportsPage() {
           </Card>
         ))}
       </div>
+            {/* Download Buttons with Dialogs */}
+        <div className="flex gap-4">
+          {/* Monthly Report Dialog */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-[#F5793B] hover:bg-orange-600 text-white text-sm rounded-xl px-4 py-2">
+                <Download className="mr-2 h-4 w-4" />
+                Download Monthly Report
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Download Monthly Report</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-2">
+                <div>
+                  <label className="text-sm font-medium">Select Month</label>
+                  <Input type="month" className="mt-1" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">File Format</label>
+                  <Select>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Choose format" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pdf">PDF</SelectItem>
+                      <SelectItem value="xlsx">XLSX</SelectItem>
+                      <SelectItem value="csv">CSV</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="submit" className="bg-[#F5793B] hover:bg-orangr-600 text-white">
+                  Download
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
 
-      {/* Download Buttons */}
-      <div className="flex gap-4">
-        <Button className="bg-[#F5793B] hover:bg-orange-600 text-white text-sm rounded-xl px-4 py-2">
-          <Download className="mr-2 h-4 w-4" />
-          Download Monthly Report
-        </Button>
-        <Button className="bg-[#F5793B] hover:bg-orange-600 text-white text-sm rounded-xl px-4 py-2">
-          <Download className="mr-2 h-4 w-4" />
-          Download Campaign Report
-        </Button>
-      </div>
+          {/* Campaign Report Dialog */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-[#F5793B] hover:bg-orange-600 text-white text-sm rounded-xl px-4 py-2">
+                <Download className="mr-2 h-4 w-4" />
+                Download Campaign Report
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Download Campaign Report</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-2">
+                <div>
+                  <label className="text-sm font-medium">Campaign Name</label>
+                  <Input placeholder="e.g. July Promo, Spring Launch" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">File Format</label>
+                  <Select>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Choose format" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pdf">PDF</SelectItem>
+                      <SelectItem value="xlsx">XLSX</SelectItem>
+                      <SelectItem value="csv">CSV</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="submit" className="bg-[#F5793B]  hover:bg-orange-600 text-white">
+                  Download
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+
 
       {/* Filters and Search */}
       <div className="flex flex-wrap gap-4 items-center">

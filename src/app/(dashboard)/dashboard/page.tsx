@@ -1,5 +1,5 @@
 "use client";
-
+import QuickActions from "@/components/dashboardform/quickactions";
 import { useEffect, useState, useRef } from "react";
 import html2canvas from "html2canvas";
 import {
@@ -31,6 +31,7 @@ import { cn } from "@/lib/utils";
 import { Pacifico } from "next/font/google";
 import { useTheme } from "next-themes";
 import Chart from "@/components/reporting/chart"; // ADDED
+
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -460,96 +461,8 @@ export default function DashboardPage() {
             </TabsContent>
           </Tabs>
         </motion.div>
-
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="rounded-2xl shadow-md p-3 relative overflow-hidden group hover:shadow-lg transition-shadow duration-300 border border-orange-200/30 dark:border-orange-800/30"
-        >
-          {/* Enhanced Glass effect with animated gradient border */}
-          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-transparent to-blue-500/5 dark:from-orange-500/10 dark:via-transparent dark:to-blue-500/10 rounded-2xl blur-xl animate-pulse-slow" />
-            <div className="absolute inset-0 p-[1px] rounded-2xl bg-gradient-to-br from-orange-500/20 via-white/10 to-blue-500/20 dark:from-orange-500/20 dark:via-white/5 dark:to-blue-500/20 group-hover:from-orange-500/30 group-hover:to-blue-500/30 transition-all duration-500">
-              <div className="absolute inset-0 bg-white/90 dark:bg-black/80 backdrop-blur-md rounded-2xl" />
-            </div>
-            <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]">
-              <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,rgba(59,130,246,0.3),transparent_50%)] animate-pulse-slow" />
-            </div>
-          </div>
-
-          <div className="relative z-10 mb-2">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center">
-                <PlusCircle className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
-              </div>
-              <div>
-                <h2 className="text-xs font-semibold text-gray-800 dark:text-gray-200 group-hover:scale-[1.02] transition-transform duration-300">
-                  Quick Actions
-                </h2>
-                <p className="text-[10px] text-gray-600 dark:text-gray-400">Streamline your workflow</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {[
-              {
-                label: "Create Order",
-                icon: <PlusCircle className="w-3.5 h-3.5" />,
-                desc: "Add a new sales order",
-                color: "text-orange-600 dark:text-orange-400",
-                bgColor: "bg-orange-500/10 dark:bg-orange-500/20"
-              },
-              {
-                label: "Add Customer",
-                icon: <UserPlus className="w-3.5 h-3.5" />,
-                desc: "Register a new customer",
-                color: "text-blue-600 dark:text-blue-400",
-                bgColor: "bg-blue-500/10 dark:bg-blue-500/20"
-              },
-              {
-                label: "Generate Report",
-                icon: <FileBarChart2 className="w-3.5 h-3.5" />,
-                desc: "Create business reports",
-                color: "text-green-600 dark:text-green-400",
-                bgColor: "bg-green-500/10 dark:bg-green-500/20"
-              },
-              {
-                label: "Manage Inventory",
-                icon: <Boxes className="w-3.5 h-3.5" />,
-                desc: "Update stock levels",
-                color: "text-purple-600 dark:text-purple-400",
-                bgColor: "bg-purple-500/10 dark:bg-purple-500/20"
-              },
-            ].map(({ label, icon, desc, color, bgColor }, index) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.6 + (index * 0.1) }}
-                className="rounded-xl p-2 bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 hover:shadow-md relative overflow-hidden group/item border border-gray-200/50 dark:border-gray-700/50"
-              >
-                {/* Subtle shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 translate-x-[-200%] group-hover/item:translate-x-[200%] transition-transform duration-1000 ease-out opacity-0 group-hover/item:opacity-100" />
-
-                <div className="flex items-center gap-2 relative z-10">
-                  <div className={cn("w-6 h-6 rounded-lg flex items-center justify-center", bgColor)}>
-                    <div className={color}>
-                      {icon}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800 dark:text-gray-200 text-[10px] group-hover/item:text-orange-600 dark:group-hover/item:text-orange-400 transition-colors duration-300">{label}</p>
-                    <p className="text-[8px] text-gray-600 dark:text-gray-400">{desc}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
+        <QuickActions/>
+        </div>
     </div>
   );
 }

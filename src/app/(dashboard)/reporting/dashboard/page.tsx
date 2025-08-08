@@ -1,5 +1,5 @@
-"use client"
-import ViewDetailsForm from "../forms/ViewDetailform";
+"use client";
+
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { useState } from "react";
@@ -10,7 +10,7 @@ import ReportCard from "@/components/reporting/reportcard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Pacifico } from "next/font/google";
 
@@ -226,7 +226,7 @@ export default function ReportCenterPage() {
               rows={4}
               className="w-full p-2 border rounded-md text-xs"
             />
-            <Button type="submit" className="text-xs" disabled={!canSubmit}>
+            <Button type="submit" className="text-xs bg-orange-500 hover:bg-orange-600" disabled={!canSubmit}>
               {canSubmit
                 ? "Submit Report"
                 : "Restricted (Insufficient Role)"}

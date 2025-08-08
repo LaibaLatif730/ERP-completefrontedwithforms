@@ -1,5 +1,16 @@
 // app/(commercial)/hr/onboard-offboard/page.tsx
 "use client";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 import React, { useState } from 'react';
 import { Search, ChevronDown, UserPlus} from 'lucide-react';
@@ -147,13 +158,51 @@ const HROnboardOffboardPage: React.FC = () => {
             </select>
             <ChevronDown size={18} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none" />
           </div>
-          <button
-            onClick={handleInitiateOnboarding}
-            className="bg-white/50 dark:bg-gray-800/50 text-black dark:text-white flex items-center justify-center py-1.5 px-3 rounded-lg shadow-md hover:bg-[#e5a004] transition-all duration-200 w-full sm:w-auto whitespace-nowrap text-sm"
-          >
-            <UserPlus size={18} className="mr-1.5" />
-            Initiate Onboarding
-          </button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="bg-white/50 dark:bg-gray-800/50 text-black dark:text-white flex items-center justify-center py-1.5 px-3 rounded-lg shadow-md hover:bg-orange-500 transition-all duration-200 w-full sm:w-auto whitespace-nowrap text-sm">
+                    <UserPlus size={18} className="mr-1.5" />
+                    Initiate Onboarding
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Initiate New Onboarding</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="name" className="text-right">
+                        Name
+                      </Label>
+                      <Input id="name" placeholder="John Doe" className="col-span-3" />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="role" className="text-right">
+                        Role
+                      </Label>
+                      <Input id="role" placeholder="Software Engineer" className="col-span-3" />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="department" className="text-right">
+                        Department
+                      </Label>
+                      <Input id="department" placeholder="IT" className="col-span-3" />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="startDate" className="text-right">
+                        Start Date
+                      </Label>
+                      <Input id="startDate" type="date" className="col-span-3" />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit" className="bg-[#e5a004] text-white hover:bg-[#c97e00]">
+                      Submit
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+
         </div>
       </div>
 

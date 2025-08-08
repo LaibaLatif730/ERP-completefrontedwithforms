@@ -6,6 +6,16 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { Report } from "@/lib/type";
 import { format } from "date-fns";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface ExportButtonsProps {
   data: Record<string, Report[]>;
@@ -60,32 +70,65 @@ export default function ExportButtons({
   ];
 
   return (
-    <div className="flex flex-wrap gap-2 mt-2 text-sm">
-      <button
-        onClick={handlePDFDownload}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md 
-                   bg-orange-400 text-white font-medium shadow-sm 
-                   hover:bg-orange-500 dark:bg-orange-600 dark:hover:bg-orange-700 
-                   transition"
-        title={`Export ${activeTab} as PDF`}
-      >
-        <Download size={16} />
-        Export PDF
-      </button>
+    <div className="flex gap-4 mt-4">
 
-      <CSVLink
-        data={filteredData}
-        headers={csvHeaders}
-        filename={`report-${fileSuffix}.csv`}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md 
-                   bg-orange-400 text-white font-medium shadow-sm 
-                   hover:bg-orange-500 dark:bg-orange-600 dark:hover:bg-orange-700 
-                   transition"
-        title={`Export ${activeTab} as CSV`}
-      >
-        <Download size={16} />
-        Export CSV
-      </CSVLink>
+      {/* -------- PDF Export Dialog -------- */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+            <Download size={16} className="mr-2" />
+            Export PDF
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Export PDF Report</DialogTitle>
+            <DialogDescription>
+              Confirm export of <strong>{activeTab}</strong> report as PDF?
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <Button
+              className="bg-orange-500 hover:bg-orange-600 text-white"
+              onClick={handlePDFDownload}
+            >
+              Confirm & Download PDF
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* -------- CSV Export Dialog -------- */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+            <Download size={16} className="mr-2" />
+            Export CSV
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Export CSV Report</DialogTitle>
+            <DialogDescription>
+              Confirm export of <strong>{activeTab}</strong> report as CSV?
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <CSVLink
+              data={filteredData}
+              headers={csvHeaders}
+              filename={`report-${fileSuffix}.csv`}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-md 
+                         bg-orange-500 text-white font-medium 
+                         hover:bg-orange-600 transition"
+            >
+              Confirm & Download CSV
+            </CSVLink>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
